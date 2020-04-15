@@ -1,0 +1,27 @@
+.cardContainer {
+  max-width: 345px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 40px;
+  background-color: tomato;
+  padding: 10px;
+}
+.titre {
+  margin-top: 8px;
+  font-size: 30px;
+  font-style: gras;
+  color: rgb(21, 0, 98);
+}
+.data {
+  margin-top: -15px;
+  text-align: left;
+}
+
+.radio {
+  display: none;
+}
+.star {
+  cursor: pointer;
+}
