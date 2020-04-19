@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MyNavbar from "./components/Navbar";
 import Container from "./components/Container";
 import AddMovie from "./components/AddMovie";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -83,35 +84,45 @@ function App() {
   const handleImage = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
+  const [serchRating, setRating] = useState("");
 
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+  };
   return (
-    <div>
-      <Router>
-        <MyNavbar setkeyValue={setkeyValue} keyValue={keyValue} />
-        <Switch>
-          <Route path="/" exact>
-            <Container
-              list={list.filter((el) => el.Title.includes(keyValue.keyWord))}
-              value={value}
-              dateMovie={dateMovie}
-              image={image}
-              handleStart={handleStart}
-              handleHoverStart={handleHoverStart}
-            />
-          </Route>
-          <Route path="/Add">
-            <AddMovie
-              handleChange={handleChange}
-              handleClick={handleClick}
-              value={value}
-              handleImage={handleImage}
-              handleChangeDate={handleChangeDate}
-              date={date}
-            />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <MyNavbar
+        setkeyValue={setkeyValue}
+        keyValue={keyValue}
+        ratingChanged={ratingChanged}
+      />
+      <Switch>
+        <Route path="/list" exact>
+          <Container
+            list={list.filter(
+              (el) =>
+                el.Title.includes(keyValue.keyWord) && el.Rating >= serchRating
+            )}
+            value={value}
+            dateMovie={dateMovie}
+            image={image}
+            handleStart={handleStart}
+            handleHoverStart={handleHoverStart}
+          />
+        </Route>
+
+        <Route path="/">
+          <AddMovie
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={value}
+            handleImage={handleImage}
+            handleChangeDate={handleChangeDate}
+            date={date}
+          />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
